@@ -11,7 +11,9 @@ try:
     despachos = data[data['Motivo'] == 'DESPACHO']
     # Filtrar los despachos con número de serie vacío o nulo
     despachos_filtrados = despachos[despachos['Número de serie'].notna() & (despachos['Número de serie'] != '')]
-
+    despachos_filtrados['Servicio'] = despachos_filtrados['Servicio'].replace('BASICO ENTEL G', 'BASICO ENTEL')
+    despachos_filtrados['Servicio'] = despachos_filtrados['Servicio'].replace('ENTEL GLOBAL', 'FLOTA ENTEL GLOBAL')
+    despachos_filtrados['Servicio'] = despachos_filtrados['Servicio'].replace('ENTE GLOBAL', 'FLOTA ENTEL GLOBAL')
     # Exportar a Excel
     archivo_excel = 'data_filtrada.xlsx'
     despachos_filtrados.to_excel(archivo_excel, index=False)
